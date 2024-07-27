@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .calculator {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .calc-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+        }
+        .display {
+            height: 60px;
+            text-align: right;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator card">
+            <h1 class="text-center">Calculator</h1>
+            <div class="card-body">
+                <form method="POST" id="calc-form">
+                    {% csrf_token %}
+                    <input type="text" class="form-control display" id="expression" name="expression" readonly>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('1')">1</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('2')">2</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('3')">3</button>
+                        <button type="button" class="btn btn-primary calc-btn" onclick="appendValue('+')">+</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('4')">4</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('5')">5</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('6')">6</button>
+                        <button type="button" class="btn btn-primary calc-btn" onclick="appendValue('-')">-</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('7')">7</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('8')">8</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('9')">9</button>
+                        <button type="button" class="btn btn-primary calc-btn" onclick="appendValue('*')">*</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('0')">0</button>
+                        <button type="button" class="btn btn-secondary calc-btn" onclick="appendValue('.')">.</button>
+                        <button type="button" class="btn btn-warning calc-btn" onclick="clearDisplay()">C</button>
+                        <button type="button" class="btn btn-primary calc-btn" onclick="appendValue('/')">/</button>
+                        <button type="submit" class="btn btn-success calc-btn">=</button>
+                    </div>
+                </form>
+                {% if result != "" %}
+                <div class="alert alert-danger mt-3 text-center" role="alert">
+                    Result: {{ result }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function appendValue(value) {
+            document.getElementById('expression').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('expression').value = '';
+        }
+    </script>
+</body>
+</html>
